@@ -15,19 +15,25 @@ def index():
 
 @app.route("/loadnpcs", methods=['POST'])
 def get_zones(): 
+
+    #get the name out of the form
     shortname = request.form['shortname']
+
+    #remove the apostrophes
+    shortname = format(shortname)
+
+    #put the zone name in the dict
+    zone = { 'shortname' : format(shortname) }
 
     #list to hold spawngroup ids
     zonemobs = []
 
-    parameters = (shortname,)
-    #get all mobs from spawn2 that match the zone
-    spawn2 = (f"SELECT spawngroupID from spawn2 WHERE zone = '{shortname}'")
-    #spawn2 = "SELECT spawngroupID from spawn2 WHERE zone = ?")
+    #quert get all mobs from spawn2 that match the zone
+    spawn2 = """SELECT spawngroupID from spawn2 WHERE zone = :shortname"""
    
     with engine.connect() as connection:
         #execute the query to get mobs from spawn 2
-        mobs = connection.execute(text(spawn2))
+        mobs = connection.execute(text(spawn2), zone)
     
         #fetch all the mobs in spawn groups
         rows = mobs.fetchall() 
@@ -45,11 +51,15 @@ def get_zones():
                 zonemobs.append(row[0] - 1000000)
             
             else:
+
+                #turn the id into a dictionary
+                mob = {'id': row[0]}
+
                 #query to get all the mobs from spawn group
-                spawngroup = text(f"SELECT npc_types.id FROM npc_types JOIN spawnentry ON spawnentry.npcID = npc_types.id  WHERE spawnentry.spawngroupid = '{row[0]}';")
+                spawngroup = text("SELECT npc_types.id FROM npc_types JOIN spawnentry ON spawnentry.npcID = npc_types.id  WHERE spawnentry.spawngroupid = :id;")
             
                 #get execute the query based on the id
-                sgids = connection.execute(spawngroup)
+                sgids = connection.execute(spawngroup, mob)
             
                 #get all the data
                 data = sgids.fetchall()
@@ -59,15 +69,15 @@ def get_zones():
                     if row[0] not in zonemobs:
                         zonemobs.append(row[0])
                           
-   
-
         fullmobs = []
         #for each mob in zonemobs, get their name, mob id, loot table id
         for id in zonemobs:
-            fullmob = text(f"SELECT npc_types.id, npc_types.name, npc_types.loottable_id FROM npc_types WHERE npc_types.id = {id}")
+
+            mob = {'id' : id}
+            fullmob = text(f"SELECT npc_types.id, npc_types.name, npc_types.loottable_id FROM npc_types WHERE npc_types.id = :id")
         
             #execute the query
-            mobvalues = connection.execute(fullmob)
+            mobvalues = connection.execute(fullmob, mob)
         
             #get the mob data
             mobdata = mobvalues.fetchall()
