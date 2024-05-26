@@ -1,0 +1,14 @@
+<div class="displaybox displaypad">
+    <div class="heading">NPC ID</div>
+    <div class="heading">NPC Stats</div>
+    <div class="heading">NPC Loot Table</div>
+</div>
+<div class="displaystripe">
+{%  for mob in fullmobs %}
+    <div class="displaybox">
+        <div class="cell">{{ mob[0] }}</div>
+        <div class="cell"><a href="//gmtools.dalaya.org/content/EditNPC.php?load={{ mob [0] }}" target="_blank">Edit {{ mob[1] }}</a></div>
+        <div class="cell"><a href="//gmtools.dalaya.org/loot_patch/viewloottable.php?id={{ mob[2] }}" target="_blank">Edit Loot Table</a></div>
+    </div>
+{% endfor %}
+</div>

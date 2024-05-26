@@ -1,0 +1,168 @@
+:root {
+  --pagewidth: 54vw; 
+  --cellheight: 3vh;
+}
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  
+  ol, ul {
+    list-style: none;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+a {
+  color: #ff6347;
+  text-decoration: none;
+}
+
+body {
+    background: linear-gradient(135deg, #000 0%, #333 50%, #000 100%);
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+    display: grid; 
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+h1 {
+    color: #fff;
+}
+
+.cell {
+  padding: 5px 0 5px 0; 
+}
+
+.cell, .heading {
+  border: 1px solid #444;
+
+}
+
+.content {
+  box-sizing: border-box;
+  height: 90vh; 
+  width: var(--pagewidth);
+  border-radius: 1vw; 
+  border: 1px solid #444444;
+  background: rgba(0, 0, 0, 0.5); 
+  color: #fff;
+  overflow-y: auto; 
+}
+
+.displaybox {
+  box-sizing: border-box; 
+  display: grid;
+  width: 52vw;
+  grid-template-columns: 8vw 22vw 22vw;  
+  text-align: center; 
+}
+
+.displaybox a:hover {
+  text-decoration: underline;
+}
+
+.displaypad {
+  margin: 0; 
+}
+
+.displaystripe .displaybox:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.displaystripe .displaybox:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.displaystripe .displaybox:hover{
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.formbutton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #ff4500, #ff6347);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.forminput {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;  
+}
+
+.formmargin {
+  justify-self: center; 
+  margin-bottom: 20px; 
+}
+
+.heading {
+  padding: 10px;
+  background-color: #555;
+  font-weight: 500; 
+  font-size: 1.75vh;
+}
+
+.phtitle {
+  margin: 2.75vh 0 2.75vh 0; 
+  font-weight: 700; 
+}
+
+.reminder {
+  margin-bottom: 2vh; 
+}
+
+.results {
+  box-sizing: border-box; 
+  width: var(--pagewidth);
+  padding: 0px 1vw 0 1vw; 
+}
+
+.static {
+    width: var(--pagewidth);
+    text-align: center; 
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Hide scrollbar */
+  height: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #222 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
