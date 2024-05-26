@@ -19,12 +19,6 @@ def get_zones():
     #get the name out of the form
     shortname = request.form['shortname']
 
-    #remove the apostrophes
-    shortname = format(shortname)
-
-    #put the zone name in the dict
-    zone = { 'shortname' : format(shortname) }
-
     #list to hold spawngroup ids
     zonemobs = []
 
@@ -33,7 +27,7 @@ def get_zones():
    
     with engine.connect() as connection:
         #execute the query to get mobs from spawn 2
-        mobs = connection.execute(text(spawn2), zone)
+        mobs = connection.execute(text(spawn2), { 'shortname' : shortname })
     
         #fetch all the mobs in spawn groups
         rows = mobs.fetchall() 
