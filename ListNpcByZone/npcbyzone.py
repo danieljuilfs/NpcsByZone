@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 #connect to the db
-connection = tools.dbconnect('eq25'); 
+connection = tools.dbconnect(''); 
 
 @app.route("/")
 def index():
