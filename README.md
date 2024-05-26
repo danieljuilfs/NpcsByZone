@@ -1,0 +1,1 @@
+First flask webapp project. Using it to pull data from the npc database to generate a list of every npc in a zone for easy editing. This was the first thing I wrote in python in like two years and boy did it show. But got it done!
