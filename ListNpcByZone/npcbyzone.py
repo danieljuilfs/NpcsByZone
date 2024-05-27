@@ -1,13 +1,12 @@
 #code by juff, webdesign by rari, css by juff and rari
 from flask import Flask, render_template, request, session
 from sqlalchemy import text
-import tools
-import os
+from shared import dbutil
 
 app = Flask(__name__)
 
 #get the engine
-engine = tools.dbconnect('eq25'); 
+engine = dbutil.dbconnect('eq25'); 
 
 @app.route("/")
 def index():
