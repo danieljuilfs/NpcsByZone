@@ -3,8 +3,8 @@ from sqlalchemy import create_engine
 def dbconnect(database):
 
     #create sql engine
-    user = 'itp246'
-    password = 'itp246'
+    user = 'username'
+    password = 'password'
     host = 'localhost'
     
     #string for connecting
