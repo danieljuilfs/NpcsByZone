@@ -1,14 +1,15 @@
 #code by juff, webdesign by rari, css by juff and rari
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 from sqlalchemy import text
-from shared import dbutil
+from ..shared import dbutil
+
 
 app = Flask(__name__)
 
 #get the engine
 engine = dbutil.dbconnect('eq25'); 
 
-@app.route("/")
+@app.route("/npcbyzone")
 def index():
     return render_template('zonenpcs.html')
 
@@ -49,7 +50,7 @@ def get_zones():
                 mob = {'id': row[0]}
 
                 #query to get all the mobs from spawn group
-                spawngroup = text("SELECT npc_types.id FROM npc_types JOIN spawnentry ON spawnentry.npcID = npc_types.id  WHERE spawnentry.spawngroupid = :id;")
+                spawngroup = text("SELECT npc_types_patch.id FROM npc_types_patch JOIN spawnentry ON spawnentry.npcID = npc_types_patch.id  WHERE spawnentry.spawngroupid = :id;")
             
                 #get execute the query based on the id
                 sgids = connection.execute(spawngroup, mob)
@@ -67,7 +68,7 @@ def get_zones():
         for id in zonemobs:
 
             mob = {'id' : id}
-            fullmob = text(f"SELECT npc_types.id, npc_types.name, npc_types.loottable_id FROM npc_types WHERE npc_types.id = :id")
+            fullmob = text(f"SELECT npc_types_patch.id, npc_types_patch.name, npc_types_patch.loottable_id FROM npc_types_patch WHERE npc_types_patch.id = :id")
         
             #execute the query
             mobvalues = connection.execute(fullmob, mob)

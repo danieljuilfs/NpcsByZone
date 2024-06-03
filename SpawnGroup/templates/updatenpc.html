@@ -1,0 +1,22 @@
+{% for result in updatelist %}
+<div class="npcs displayhover">
+    <form class="actions cell displayhover" hx-post="/removenpc" hx-trigger="submit" hx-target=".update" hx-target-error=".errors" hx-swap="innerHTML">
+        <a href="//gmtools.dalaya.org/content/EditNPC.php?load={{ result [0] }}" class="button-link" target="_blank">Edit</a>
+        <a href="//gmtools.dalaya.org/loot_patch/viewloottable.php?id={{ result [2] }}" class="button-link" target="_blank">View Loot Table</a>
+        <input type="hidden" value="{{ groupid }}" name="groupid">
+        <input type="hidden" value="{{ result[0] }}" name="npcid">
+        <input type="submit" value="Remove" class="actionbtn button-link">
+    </form>
+    <div class="npctext">{{ result[0] }}</div>
+    <div class="npctext">{{ result[1] }}</div>
+    <form class="splitchance cell displayhover" hx-post='/updatechance' hx-trigger="submit" hx-target=".update" hx-target-error=".errors" hx-swap="innerHTML">
+        <input type="text" name="chance" value="{{ result[3] }}" class="editchance">
+        <input type="hidden" value="{{ groupid }}" name="groupid">
+        <input type="hidden" value="{{ result[0] }}" name="npcid">
+        <input type="submit" value="Update Chance" class="addnpcbtn">
+    </form>
+</div>
+{% endfor %}
+<form hx-trigger="load" hx-target=".errors" hx-post="/success">
+    <input type="hidden" value="'success" name="success">
+</form>     

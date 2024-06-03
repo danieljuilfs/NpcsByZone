@@ -1,0 +1,85 @@
+<!--#code by juff, webdesign by rari, css by juff and rari-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Manage Spawngroups</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/toolstyles.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/response-targets.js"></script>
+
+</head>
+<body class="bodygrid" hx-ext="response-targets">
+    <div class="content">
+        <div class="static">
+            <h1 class="phtitle">Manage Spawngroups</h1>
+            <p class="reminder">To edit an existing spawn group, provide either the ID or the name. To create a new spawn group, provide both the ID and the name.</p>
+            <form hx-post="/creategroup" hx-trigger="submit" hx-target=".results" hx-target-error=".errors" hx-swap="innerHTML" class="formbg">
+                <div class="formmargin">
+                    <label for="spawnid" class="spawn">Spawn Group ID: </label>
+                    <input type="text" name="spawnid" class="forminput">
+                    <label for="spawnname" class="spawn">Spawn Group Name: </label>
+                    <input type="text" name="spawnname" class="forminput">
+                    <input type="submit" value="Submit" class="formbutton">
+                </div>
+            </form>
+        </div>
+        <div class="results" hx-trigger="load" hx-target=".errors" hx-post="/clear" hx-swap="innerhtml">
+            {% if group %}
+            <div class="displaybox displaypad">
+                <div class="heading">Spawn Group ID</div>
+                <div class="heading">Spawn Group Name</div>
+                <div class="heading">Actions</div>
+            </div>
+            <form class="displaybox displayhover">
+                <div class="cell"><p class="tblcellid">{{  group[0] }}</p></div>
+                <input type="hidden" value = "{{  group[0] }}" name="groupid">
+                <div class="cell"><input type="text" name="groupname"  class="tblcellpad" value="{{ group[1] }}"></div>
+                <div class="cell"><input type="submit" hx-post='/updatename' hx-trigger="click" hx-target=".results" hx-target-error=".errors" hx-swap="innerHTML" value="Update Name" class="updatebutton"></div>
+            </form>
+            <div class="npctable">
+                <div class="npcheader">
+                    <div class="heading">Actions</div>
+                    <div class="heading">NPC ID</div>
+                    <div class="heading">NPC Name</div>
+                    <div class="heading">NPC Chance</div>
+                </div>
+                <div class="displaystripe">
+                    <form class="npcs displayhover">
+                        <div class="cell"></div>
+                        <div class="cell"><input type="text" name ="npcid" placeholder="Enter NPC ID" class="npcinput"></div>
+                        <div class="cell"><input type="hidden" value = "{{  group[0] }}" name="groupid"></div>
+                        <div class="splitchance cell">
+                            <input type="text" name="chance" placeholder="Enter NPC Chance" class="editchance"><input hx-post='/addnpc' hx-trigger="click" hx-target=".update" hx-target-error=".errors"  hx-swap="innerHTML" type="submit" value="Add NPC" class="addnpcbtn"></div>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+        <div class="update" hx-trigger="load" hx-target=".errors" hx-post="/clear" hx-swap="innerhtml">
+            {%  if npcs %}
+            {% for result in npcs %}
+            <div class="npcs displayhover">
+                <form class="actions cell" hx-post="/removenpc" hx-trigger="submit" hx-target=".update" hx-target-error=".errors" hx-swap="innerHTML">
+                    <a href="//gmtools.dalaya.org/content/EditNPC.php?load={{ result [0] }}" class="button-link" target="_blank">Edit</a>
+                    <a href="//gmtools.dalaya.org/loot_patch/viewloottable.php?id={{ result [2] }}" class="button-link" target="_blank">View Loot Table</a>
+                    <input type="hidden" value="{{ groupid }}" name="groupid">
+                    <input type="hidden" value="{{ result[0] }}" name="npcid">
+                    <input type="submit" value="Remove" class="actionbtn button-link">
+                </form>
+                <div class="npctext">{{ result[0] }}</div>
+                <div class="npctext">{{ result[1] }}</div>
+                <form class="splitchance cell" hx-post='/updatechance' hx-trigger="submit" hx-target=".update" hx-target-error=".errors" hx-swap="innerHTML">
+                    <input type="text" name="chance" value="{{ result[3] }}" class="editchance">
+                    <input type="hidden" value="{{ groupid }}" name="groupid">
+                    <input type="hidden" value="{{ result[0] }}" name="npcid">
+                    <input type="submit" value="Update Chance" class="addnpcbtn">
+                </form>
+            </div>
+            {% endfor %}
+            {% endif %} 
+        </div>
+    </div>
+    <div hx-swap="true" id="error-container" class="errors"></div>
+</div>
+</body>
+

@@ -1,0 +1,55 @@
+<div class="displaybox displaypad">
+    <div class="heading">Spawn Group ID</div>
+    <div class="heading">Spawn Group Name</div>
+    <div class="heading">Actions</div>
+</div>
+<form class="displaybox displayhover">
+    <div class="cell"><p class="tblcellid">{{  group[0] }}</p></div>
+    <input type="hidden" value = "{{  group[0] }}" name="groupid">
+    <div class="cell"><input type="text" name="groupname"  class="tblcellpad" value="{{ group[1] }}"></div>
+    <div class="cell"><input type="submit" hx-post='/updatename' hx-trigger="click" hx-target=".results" hx-target-error=".errors" hx-swap="innerHTML" value="Update Name" class="updatebutton"></div>
+</form>
+
+<div class="npctable">
+    <div class="npcheader">
+        <div class="heading">Actions</div>
+        <div class="heading">NPC ID</div>
+        <div class="heading">NPC Name</div>
+        <div class="heading">NPC Chance</div>
+    </div>
+    <div class="displaystripe">
+        <form class="npcscolor displayhover">
+            <div class="cell"></div>
+            <div class="cell"><input type="text" name ="npcid" placeholder="Enter NPC ID" class="npcinput"></div>
+            <div class="cell"><input type="hidden" value = "{{  group[0] }}" name="groupid"></div>
+            <div class="splitchance cell">
+                <input type="text" name="chance" placeholder="Enter NPC Chance" class="editchance"><input hx-post='/addnpc' hx-trigger="click" hx-target=".update" hx-target-error=".errors"  hx-swap="innerHTML" type="submit" value="Add NPC" class="addnpcbtn">
+            </div>
+        </form>
+        <div class="update" hx-trigger="load" hx-target=".errors" hx-post="/clear" hx-swap="innerhtml">
+        {%  if npcs %}
+        {% for result in npcs %}
+            <div class="npcs displayhover">
+                <form class="actions cell" hx-post="/removenpc" hx-trigger="submit" hx-target=".update" hx-target-error=".errors" hx-swap="innerHTML">
+                    <a href="//gmtools.dalaya.org/content/EditNPC.php?load={{ result [0] }}" class="button-link" target="_blank">Edit</a>
+                    <a href="//gmtools.dalaya.org/loot_patch/viewloottable.php?id={{ result [2] }}" class="button-link" target="_blank">View Loot Table</a>
+                    <input type="hidden" value="{{ groupid }}" name="groupid">
+                    <input type="hidden" value="{{ result[0] }}" name="npcid">
+                    <input type="submit" value="Remove" class="actionbtn button-link">
+                </form>
+                <div class="npctext">{{ result[0] }}</div>
+                <div class="npctext">{{ result[1] }}</div>
+                <form class="splitchance cell displayhover" hx-post='/updatechance' hx-trigger="submit" hx-target=".update" hx-target-error=".errors" hx-swap="innerHTML">
+                    <input type="text" name="chance" value="{{ result[3] }}" class="editchance">
+                    <input type="hidden" value="{{ groupid }}" name="groupid">
+                    <input type="hidden" value="{{ result[0] }}" name="npcid">
+                    <input type="submit" value="Update Chance" class="addnpcbtn">
+                </form>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+

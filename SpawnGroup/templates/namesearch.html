@@ -1,0 +1,18 @@
+{% if appendlist %}
+<div class="nameheader">
+    <div class="heading">Spawn Group ID</div>
+    <div class="heading">Spawn Group Name</div>
+    <div class="heading">NPCS</div>
+    <div class="heading">Actions</div>
+</div>
+{% for row in appendlist %}
+<form class="namedisplay" hx-post="/creategroup" hx-trigger="submit" hx-target=".results" hx-target-error=".errors" hx-swap="innerHTML">
+    <div class="namecell">{{ row[0][0] }}</div>
+    <div class="namecell">{{ row[1][0] }}</div>
+    <div class="leftnpc">{% for i in range(row[2]|length) %} <p>ID: {{ row[2][i] }} - Name: {{ row[3][i] }}</p> {% endfor %}</div>
+    <input type="hidden" value="{{ row[0][0] }}" name="spawnid">
+    <input type="hidden" value="" name="spawnname">
+    <div class="namecell"><input type="submit" value="Edit" class="editbutton"></div>
+</form>
+{% endfor %}
+{% endif %}

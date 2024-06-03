@@ -1,0 +1,432 @@
+:root {
+  --pagewidth: 54vw; 
+  --cellheight: 3vh;
+}
+html {
+    font-size: 16px;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+  
+  ol, ul {
+    list-style: none;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+@keyframes shift {
+  from {background-color: #ff4500;}
+  to {background-color: rgba(0, 0, 0, 0.5);}
+}
+
+@keyframes greenshift {
+  from {background-color: #013220;}
+  to {background-color: rgba(0, 0, 0, 0.5);}
+}
+
+a {
+  color: #ff6347;
+  text-decoration: none;
+}
+
+input {
+  font-family: "Segoe UI", Arial, sans-serif; 
+}
+
+body {
+    background: linear-gradient(135deg, #000 0%, #333 50%, #000 100%);
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+    display: grid; 
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+h1 {
+    color: #fff;
+}
+
+.actionbtn {
+  padding: 3px 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #555;
+  color: #d3d3d3;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 12px; 
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: auto auto auto; 
+}
+
+.addnpcbtn {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #ff4500, #ff6347);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-left: 1vw; 
+  margin-top: 7.5px; 
+  width: 6vw; 
+  font-size: 12px; 
+}
+
+.button-link {
+  display: inline-block;
+  padding: 3px 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #555;
+  color: #d3d3d3;
+  transition: background-color 0.3s, color 0.3s;
+  text-decoration: none;
+  font-size: 12px; 
+}
+
+.button-link:hover {
+  background-color: #d3d3d3;
+  color: #000;
+}
+
+.cell {
+  padding: 10.5px 0 10px 0; 
+  height: 100%; 
+  width: 100%; 
+  justify-self: center; 
+  align-self: center; 
+}
+
+.cell, .heading, .npctext {
+  border: 1px solid #444;
+}
+
+.content {
+  height: 90vh; 
+  width: var(--pagewidth);
+  border-radius: 1vw; 
+  border: 1px solid #444444;
+  background: rgba(0, 0, 0, 0.5); 
+  color: #fff;
+  overflow-y: auto; 
+  padding: 20px 10px 20px 10px; 
+  display: grid; 
+  grid-template-rows: 20vh 67vh 3vh;
+}
+
+.displaybox {
+  box-sizing: border-box; 
+  display: grid;
+  width: var(--pagewidth);  
+  grid-template-columns: 17.3vw 22.5vw 14.2vw;  
+  place-items: center; 
+  text-align: center;   
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.displaybox a:hover {
+  text-decoration: underline;
+}
+
+.displaypad {
+  margin: 0; 
+}
+
+.displaystripe .displaybox:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.displaystripe .displaybox:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.displayhover:hover {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.namecell {
+  padding: 10.5px 0 10px 0; 
+  height: 100%; 
+  width: 100%; 
+  justify-self: center; 
+  align-self: center; 
+  text-align: left; 
+}
+
+.npcs:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.npcs:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.err {
+  animation-name: shift;
+  animation-duration: 1s; 
+}
+
+.editbutton {
+  padding: 5px 10px; 
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #ff4500, #ff6347);
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;   
+  font-size: 14px; 
+}
+
+.editchance {
+  width: 7vw; 
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;  
+  margin-left: 15px; 
+  text-align: left;
+  padding-left: 10px; 
+}
+
+.errors {
+  border-top: 1px solid #444;
+  text-align: center;
+  font-size: 2vh; 
+  padding-top: 7.5px; 
+}
+
+.formbutton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #ff4500, #ff6347);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.forminput {
+  width: 10.5vw; 
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;  
+}
+
+.formmargin {
+  justify-self: center; 
+  margin-bottom: 20px; 
+}
+
+.heading {
+  padding: 10px;
+  background-color: #555;
+  font-weight: 500; 
+  font-size: 1.75vh;
+  width: 100%;
+  height: 100%;
+  align-self: center;  
+}
+
+.leftnpc{
+  text-align: start; 
+  border: 1px solid #444;
+  height: 100%; 
+  width: 100%; 
+  padding: 10.5px 0 10px 10px; 
+}
+
+.namecell {
+  padding: 10.5px 0 10px 0; 
+  display: grid; 
+  height: 100%; 
+  width: 100%; 
+  border: 1px solid #444;
+  justify-content: center; 
+  align-content: center; 
+}
+
+.namedisplay {
+  box-sizing: border-box; 
+  display: grid;
+  width: var(--pagewidth);
+  height: max-content; 
+  grid-template-columns: 11vw 13.3vw 22vw 7.7vw;  
+  align-items: center; 
+  background-color: rgba(255, 255, 255, 0.05);
+  text-align: center; 
+}
+
+.nameheader {
+  box-sizing: border-box; 
+  display: grid;
+  width: var(--pagewidth);  
+  height: max-content; 
+  grid-template-columns: 11vw 13.3vw 22vw 7.7vw;  
+  align-items: center; 
+  background-color: rgba(255, 255, 255, 0.05);
+  text-align: center; 
+}
+
+.namednpcs {
+  display:grid;
+  grid-template-columns: 11vw 13.3vw 22vw 7.7vw; 
+  width: var(--pagewidth);  
+  place-items: center; 
+  text-align: center;   
+  width: 100%;
+  height: 100%;  
+}
+
+.npcs {
+  display:grid;
+  grid-template-columns: 16.2vw 10.8vw 10.8vw 16.2vw; 
+  width: var(--pagewidth);  
+  place-items: center; 
+  text-align: center;   
+  width: 100%;
+  height: 100%;  
+}
+
+.npcscolor {
+  display:grid;
+  grid-template-columns: 16.2vw 10.8vw 10.8vw 16.2vw; 
+  width: var(--pagewidth);  
+  place-items: center; 
+  text-align: center;   
+  width: 100%;
+  height: 100%;  
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.npcheader {
+  box-sizing: border-box; 
+  display: grid;
+  width: var(--pagewidth);  
+  grid-template-columns: 16.2vw 10.8vw 10.8vw 16.2vw; 
+  place-items: center; 
+  text-align: center;   
+}
+
+.npcinput {
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;  
+  margin: 3px 0px 3px 0px;  
+  padding: 5px 0px; 
+  text-align: center; 
+}
+
+.npctable {
+  width: var(--pagewidth);   
+}
+
+.npctext {
+  padding: 16px 0 10px 0; 
+  height: 100%; 
+  width: 100%; 
+  justify-self: center; 
+  align-self: center; 
+}
+
+.phtitle {
+  margin-bottom: 20px; 
+  font-weight: 700; 
+}
+
+.reminder {
+  margin-bottom: 2vh; 
+}
+
+.results {
+  box-sizing: border-box; 
+  height: 100%; 
+  width: var(--pagewidth);
+  overflow-y: scroll; 
+}
+
+.spawn {
+  margin-right: 10px; 
+}
+
+.splitchance {
+  display: grid;
+  grid-template-columns: 8vw 8vw;
+}
+
+.static {
+  width: var(--pagewidth);
+  text-align: center; 
+}
+
+.success {
+  animation-name: greenshift;
+  animation-duration: 1s; 
+}
+
+.tblcellpad {
+  padding: 5px 0px 5px 7.5px; 
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #222;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.updatebutton {
+  padding: 5px 15px; 
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(to right, #ff4500, #ff6347);
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;   
+  font-size: 12px; 
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Hide scrollbar */
+  height: 0;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #222 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
